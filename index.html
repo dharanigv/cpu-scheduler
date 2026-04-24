@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 class="title">CPU SCHEDULING SIMULATOR</h1>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="box">
+    <h2>Input</h2>
+
+    <!-- UPDATED ALGORITHMS -->
+    <select id="algo">
+      <option value="fcfs">FCFS</option>
+      <option value="sjf">SJF (Non-Preemptive)</option>
+      <option value="srtf">SRTF (Preemptive)</option>
+      <option value="priority_np">Priority (Non-Preemptive)</option>
+      <option value="priority_p">Priority (Preemptive)</option>
+      <option value="rr">Round Robin</option>
+    </select>
+
+    <!-- INPUT FIELDS -->
+    <input id="arrival" placeholder="Arrival Times (e.g. 0 1 2 3)">
+    <input id="burst" placeholder="Burst Times (e.g. 5 3 8 6)">
+    <input id="priority" placeholder="Priority (e.g. 2 1 4 3)">
+    <input id="quantum" placeholder="Time Quantum (for RR)">
+
+    <!-- BUTTON -->
+    <button onclick="run()">Run</button>
+
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="box">
+    <h2>Output</h2>
+
+    <!-- GANTT -->
+    <div id="gantt"></div>
+    <div id="timeline"></div>
+
+    <!-- TABLE -->
+    <table id="table"></table>
+
+    <!-- AVERAGE -->
+    <h3 id="avg"></h3>
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
