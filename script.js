@@ -8,7 +8,6 @@ function run(){
   let bt=getArray("burst");
   let pr=getArray("priority");
   let q=parseInt(document.getElementById("quantum").value)||2;
-
   let algo=document.getElementById("algo").value;
 
   let p=[];
@@ -22,12 +21,12 @@ function run(){
     });
   }
 
-  if(algo==="fcfs") fcfs(p);
-  if(algo==="sjf") sjf(p);
-  if(algo==="srtf") srtf(p);
-  if(algo==="priority_np") priorityNP(p);
-  if(algo==="priority_p") priorityP(p);
-  if(algo==="rr") rr(p,q);
+  if(algo==="fcfs") fcfs([...p]);
+  if(algo==="sjf") sjf([...p]);
+  if(algo==="srtf") srtf([...p]);
+  if(algo==="priority_np") priorityNP([...p]);
+  if(algo==="priority_p") priorityP([...p]);
+  if(algo==="rr") rr([...p],q);
 }
 
 function display(p,gantt){
@@ -56,6 +55,7 @@ function display(p,gantt){
   drawGantt(gantt);
 }
 
+/* PERFECT GANTT */
 function drawGantt(gantt){
   let g=document.getElementById("gantt");
   let t=document.getElementById("timeline");
@@ -63,25 +63,47 @@ function drawGantt(gantt){
   g.innerHTML="";
   t.innerHTML="";
 
-  gantt.forEach((item,i)=>{
+  const scale=30;
+
+  g.style.position="relative";
+  g.style.height="60px";
+
+  let merged=[];
+  gantt.forEach(item=>{
+    if(merged.length && merged[merged.length-1].pid===item.pid){
+      merged[merged.length-1].end=item.end;
+    }else{
+      merged.push({...item});
+    }
+  });
+
+  merged.forEach((item,i)=>{
+    let duration=item.end-item.start;
+
     let block=document.createElement("div");
     block.className="block";
     block.innerText=item.pid;
+    block.style.position="absolute";
+    block.style.left=(item.start*scale)+"px";
+    block.style.width=(duration*scale)+"px";
+
     g.appendChild(block);
 
     let time=document.createElement("div");
     time.innerText=item.start;
+    time.style.left=(item.start*scale)+"px";
     t.appendChild(time);
 
-    if(i===gantt.length-1){
+    if(i===merged.length-1){
       let end=document.createElement("div");
       end.innerText=item.end;
+      end.style.left=(item.end*scale)+"px";
       t.appendChild(end);
     }
   });
 }
 
-//////////////////// ALGORITHMS ////////////////////
+//////////////// ALGORITHMS //////////////////
 
 // FCFS
 function fcfs(p){
@@ -90,6 +112,7 @@ function fcfs(p){
 
   p.forEach(proc=>{
     if(time<proc.arrival) time=proc.arrival;
+
     let start=time,end=time+proc.burst;
 
     proc.ct=end;
@@ -130,10 +153,10 @@ function sjf(p){
   display(done,gantt);
 }
 
-// SRTF (IMPORTANT FIX)
+// SRTF
 function srtf(p){
   let time=0,complete=0,n=p.length,gantt=[];
-  
+
   while(complete<n){
     let avail=p.filter(x=>x.arrival<=time && x.remaining>0);
     if(!avail.length){time++;continue;}
@@ -158,7 +181,7 @@ function srtf(p){
   display(p,gantt);
 }
 
-// Priority Non-Preemptive
+// Priority NP
 function priorityNP(p){
   let time=0,done=[],gantt=[];
 
@@ -213,12 +236,12 @@ function priorityP(p){
   display(p,gantt);
 }
 
-// Round Robin (FIXED)
+// Round Robin
 function rr(p,q){
   p.sort((a,b)=>a.arrival-b.arrival);
 
   let time=0,queue=[],i=0,gantt=[];
-  
+
   while(queue.length || i<p.length){
 
     if(queue.length===0 && time<p[i].arrival){
