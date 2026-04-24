@@ -38,7 +38,6 @@ body::before {
   100% { transform: rotate(360deg); }
 }
 
-/* TITLE */
 .title {
   text-align: center;
   padding: 20px;
@@ -46,12 +45,10 @@ body::before {
   text-shadow: 0 0 20px #00f2ff;
 }
 
-/* NAMES */
 .credits {
   text-align: center;
   margin-bottom: 15px;
-  font-size: 1.1rem;
-  text-shadow: 0 0 10px #00f2ff;
+  font-size: 1rem;
 }
 
 /* LAYOUT */
@@ -61,13 +58,11 @@ body::before {
   padding: 20px;
 }
 
-/* BOX */
 .box {
   width: 40%;
   padding: 20px;
   border-radius: 15px;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(15px);
 }
 
 /* INPUT */
@@ -107,6 +102,7 @@ th, td {
 #gantt {
   position: relative;
   height: 60px;
+  width: 100%;
   margin-top: 20px;
 }
 
@@ -118,14 +114,14 @@ th, td {
   justify-content: center;
   background: linear-gradient(45deg,#00f2ff,#ff00ff);
   border-radius: 6px;
-  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 /* TIMELINE */
 #timeline {
   position: relative;
   height: 20px;
-  margin-top: 5px;
+  width: 100%;
 }
 
 #timeline div {
