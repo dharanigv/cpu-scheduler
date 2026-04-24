@@ -55,7 +55,7 @@ function display(p,gantt){
   drawGantt(gantt);
 }
 
-/* PERFECT GANTT */
+/* PERFECT AUTO-SCALE GANTT */
 function drawGantt(gantt){
   let g=document.getElementById("gantt");
   let t=document.getElementById("timeline");
@@ -63,10 +63,10 @@ function drawGantt(gantt){
   g.innerHTML="";
   t.innerHTML="";
 
-  const scale=30;
+  let totalTime = gantt[gantt.length-1].end;
+  let width = g.clientWidth;
 
-  g.style.position="relative";
-  g.style.height="60px";
+  let scale = width / totalTime;
 
   let merged=[];
   gantt.forEach(item=>{
@@ -83,7 +83,7 @@ function drawGantt(gantt){
     let block=document.createElement("div");
     block.className="block";
     block.innerText=item.pid;
-    block.style.position="absolute";
+
     block.style.left=(item.start*scale)+"px";
     block.style.width=(duration*scale)+"px";
 
@@ -105,7 +105,6 @@ function drawGantt(gantt){
 
 //////////////// ALGORITHMS //////////////////
 
-// FCFS
 function fcfs(p){
   p.sort((a,b)=>a.arrival-b.arrival);
   let time=0,gantt=[];
@@ -126,7 +125,6 @@ function fcfs(p){
   display(p,gantt);
 }
 
-// SJF
 function sjf(p){
   let time=0,done=[],gantt=[];
 
@@ -153,7 +151,6 @@ function sjf(p){
   display(done,gantt);
 }
 
-// SRTF
 function srtf(p){
   let time=0,complete=0,n=p.length,gantt=[];
 
@@ -181,7 +178,6 @@ function srtf(p){
   display(p,gantt);
 }
 
-// Priority NP
 function priorityNP(p){
   let time=0,done=[],gantt=[];
 
@@ -208,7 +204,6 @@ function priorityNP(p){
   display(done,gantt);
 }
 
-// Priority Preemptive
 function priorityP(p){
   let time=0,complete=0,n=p.length,gantt=[];
 
@@ -236,7 +231,6 @@ function priorityP(p){
   display(p,gantt);
 }
 
-// Round Robin
 function rr(p,q){
   p.sort((a,b)=>a.arrival-b.arrival);
 
