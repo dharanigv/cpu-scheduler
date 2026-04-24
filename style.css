@@ -1,19 +1,17 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BODY */
 body {
   font-family: 'Segoe UI', sans-serif;
   color: white;
-  overflow-x: hidden;
   background: #000;
+  overflow-x: hidden;
 }
 
-/* AURORA BACKGROUND */
+/* BACKGROUND */
 body::before {
   content: "";
   position: fixed;
@@ -21,7 +19,6 @@ body::before {
   height: 200%;
   top: -50%;
   left: -50%;
-
   background: linear-gradient(
     120deg,
     #00f2ff,
@@ -30,28 +27,31 @@ body::before {
     #0066ff,
     #ff0066
   );
-
   opacity: 0.4;
   filter: blur(120px);
-
   animation: auroraMove 12s infinite linear;
   z-index: -1;
 }
 
 @keyframes auroraMove {
-  0% { transform: rotate(0deg) translate(0,0); }
-  50% { transform: rotate(180deg) translate(50px, 50px); }
-  100% { transform: rotate(360deg) translate(0,0); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* TITLE */
 .title {
   text-align: center;
-  padding: 25px;
-  font-size: 2.8rem;
-  font-weight: bold;
-  letter-spacing: 3px;
+  padding: 20px;
+  font-size: 2.5rem;
   text-shadow: 0 0 20px #00f2ff;
+}
+
+/* NAMES */
+.credits {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px #00f2ff;
 }
 
 /* LAYOUT */
@@ -61,55 +61,33 @@ body::before {
   padding: 20px;
 }
 
-/* GLASS BOX */
+/* BOX */
 .box {
   width: 40%;
-  padding: 25px;
+  padding: 20px;
   border-radius: 15px;
-
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(15px);
-
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 25px rgba(0,255,255,0.4);
 }
 
-/* INPUTS */
+/* INPUT */
 input, select {
-  width: 95%;
-  padding: 12px;
-  margin: 12px 0;
-  font-size: 1.1rem;
-
-  background: rgba(0,0,0,0.7);
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #111;
   color: white;
-
   border: 1px solid #00f2ff;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-/* BUTTON */
 button {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-
-  font-size: 1.2rem;
-  font-weight: bold;
-
-  background: linear-gradient(45deg, #00f2ff, #ff00ff);
-  color: white;
-
+  padding: 10px;
+  background: linear-gradient(45deg,#00f2ff,#ff00ff);
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #00f2ff;
 }
 
 /* TABLE */
@@ -117,59 +95,47 @@ table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
-  font-size: 1.1rem;
 }
 
 th, td {
   border: 1px solid rgba(255,255,255,0.3);
-  padding: 12px;
+  padding: 10px;
   text-align: center;
-}
-
-th {
-  background: rgba(0,255,255,0.2);
 }
 
 /* GANTT */
 #gantt {
-  display: flex;
+  position: relative;
+  height: 60px;
   margin-top: 20px;
 }
 
 .block {
-  padding: 15px 20px;
-  margin-right: 4px;
-
-  font-size: 1.2rem;
-
-  background: linear-gradient(45deg, #00f2ff, #ff00ff);
+  position: absolute;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg,#00f2ff,#ff00ff);
   border-radius: 6px;
-
-  box-shadow: 0 0 15px #00f2ff;
-  transition: 0.3s;
-}
-
-.block:hover {
-  transform: scale(1.1);
+  font-weight: bold;
 }
 
 /* TIMELINE */
 #timeline {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
+  position: relative;
+  height: 20px;
   margin-top: 5px;
 }
 
-/* GRAPH */
-canvas {
-  margin-top: 25px;
-  background: white;
-  border-radius: 10px;
+#timeline div {
+  position: absolute;
+  font-size: 0.8rem;
+  transform: translateX(-50%);
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+@media(max-width:900px){
   .container {
     flex-direction: column;
     align-items: center;
@@ -177,6 +143,5 @@ canvas {
 
   .box {
     width: 90%;
-    margin-bottom: 20px;
   }
 }
